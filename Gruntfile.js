@@ -27,6 +27,15 @@ module.exports = function(grunt) {
     // Clean the build directory before we do anything.
     clean: ["dist/"],    
 
+    // Copy built assets ready for distribution.
+    copy: {
+      main: {
+        files: [
+          { expand: true, cwd: 'build/', src: ['**'], dest: 'dist/' },
+        ],
+      },
+    },
+
     // gzip assets 1-to-1 for production
     compress: {
       main: {
@@ -53,8 +62,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  
+  grunt.loadNpmTasks('grunt-contrib-copy');
+
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['jshint', 'default', 'clean', 'compress' ,'bump']);
+  grunt.registerTask('publish', ['jshint', 'default', 'clean', 'copy', 'compress' ,'bump']);
 };
