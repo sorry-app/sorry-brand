@@ -85,5 +85,5 @@ module.exports = function(grunt) {
 
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['jshint', 'default', 'clean', 'copy', 'compress', 'bump', 'aws_s3']);
+  grunt.registerTask('publish', ['jshint', 'clean', 'copy', 'compress', 'bump', 'aws_s3']);
 };
