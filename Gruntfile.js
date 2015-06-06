@@ -3,6 +3,10 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    // Metadata.
+    pkg: grunt.file.readJSON('package.json'),
+    aws: grunt.file.readJSON('aws.json'),
+
     // Task configuration.
     jshint: {
       options: {
@@ -54,6 +58,20 @@ module.exports = function(grunt) {
         tagName: '%VERSION%',
         pushTo: 'origin'
       }
+    },
+
+    aws_s3: {
+      options: {
+        accessKeyId: '<%= aws.key %>',
+        secretAccessKey: '<%= aws.secret %>',
+        region: 'eu-west-1',
+        bucket: 'brand.sorryapp.com'
+      },
+      main: {
+        files: [
+          { action: 'upload', expand: true, cwd: 'dist/', src: ['**'] },
+        ]
+      }
     }
   });
 
@@ -63,8 +81,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-aws-s3');
 
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['jshint', 'default', 'clean', 'copy', 'compress' ,'bump']);
+  grunt.registerTask('publish', ['jshint', 'default', 'clean', 'copy', 'compress', 'bump', 'aws_s3']);
 };
