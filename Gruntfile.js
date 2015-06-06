@@ -24,6 +24,18 @@ module.exports = function(grunt) {
       }
     },
 
+    // gzip assets 1-to-1 for production
+    compress: {
+      main: {
+        options: {
+          archive: 'dist/sorry-branding.zip'
+        },
+        expand: true,
+        cwd: 'public/',
+        src: ['**/*']
+      }
+    },
+
     // Release & Deployment Tasks.
     bump: {
       options: {
@@ -36,6 +48,7 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task.
   grunt.registerTask('default', ['jshint']);
