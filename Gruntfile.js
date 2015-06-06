@@ -24,6 +24,9 @@ module.exports = function(grunt) {
       }
     },
 
+    // Clean the build directory before we do anything.
+    clean: ["dist/"],    
+
     // gzip assets 1-to-1 for production
     compress: {
       main: {
@@ -49,11 +52,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-contrib-compress');
-
-  // Default task.
-  grunt.registerTask('default', ['jshint']);
-
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['default', 'bump']);
+  grunt.registerTask('publish', ['jshint', 'default', 'clean', 'compress' ,'bump']);
 };
