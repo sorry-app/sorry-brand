@@ -47,7 +47,7 @@ module.exports = function(grunt) {
           archive: 'dist/sorry-branding.zip'
         },
         expand: true,
-        cwd: 'public/',
+        cwd: 'build/',
         src: ['**/*']
       }
     },
