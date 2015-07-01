@@ -83,7 +83,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-aws-s3');
 
+  // Default Build Task.
+  grunt.registerTask('default', ['jshint', 'clean', 'copy', 'compress']);
+
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['jshint', 'clean', 'copy', 'compress', 'bump', 'aws_s3']);
+  grunt.registerTask('publish', ['default', 'bump', 'aws_s3']);
 };
