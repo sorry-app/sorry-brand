@@ -69,7 +69,7 @@ module.exports = function(grunt) {
       },
       main: {
         files: [
-          { action: 'upload', expand: true, cwd: 'dist/', src: ['**'] },
+          { action: 'upload', expand: true, cwd: 'dist/', src: ['**'], dest: '<%= pkg.name %>/<%= pkg.version %>/' },
         ]
       }
     }
