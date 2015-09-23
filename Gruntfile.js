@@ -69,7 +69,9 @@ module.exports = function(grunt) {
       },
       main: {
         files: [
-          { action: 'upload', expand: true, cwd: 'dist/', src: ['**'], dest: '<%= pkg.name %>/<%= pkg.version %>/' },
+          { action: 'delete', dest: 'latest' }, // Remove old snapshop data entirely.
+          { action: 'upload', expand: true, cwd: 'dist/', src: ['**'], dest: '<%= pkg.version %>/' }, // Versioned build.
+          { action: 'upload', expand: true, cwd: 'dist/', src: ['**'], dest: 'latest/' } // Latest snapshot.
         ]
       }
     }
