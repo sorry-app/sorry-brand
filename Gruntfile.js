@@ -108,5 +108,5 @@ module.exports = function(grunt) {
 
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['default', 'bump', 'aws_s3', 'invalidate_cloudfront']);
+  grunt.registerTask('publish', ['default', 'aws_s3', 'invalidate_cloudfront']);
 };
