@@ -74,6 +74,23 @@ module.exports = function(grunt) {
           { action: 'upload', expand: true, cwd: 'dist/', src: ['**'], dest: 'latest/' } // Latest snapshot.
         ]
       }
+    },
+
+    invalidate_cloudfront: {
+      options: {
+        key: '<%= aws.key %>',
+        secret: '<%= aws.secret %>',
+        distribution: '<%= aws.distribution %>'
+      },
+      release: {
+        files: [{
+          expand: true,
+          cwd: './dist/',
+          src: ['**/*'],
+          filter: 'isFile',
+          dest: 'latest/'
+        }]
+      }
     }
   });
 
@@ -84,11 +101,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-aws-s3');
+  grunt.loadNpmTasks('grunt-invalidate-cloudfront');
 
   // Default Build Task.
   grunt.registerTask('default', ['jshint', 'clean', 'copy', 'compress']);
 
   // Publish Task.
   // Publishes a new version as a relase and pushes up to the CDN.
-  grunt.registerTask('publish', ['default', 'bump', 'aws_s3']);
+  grunt.registerTask('publish', ['default', 'bump', 'aws_s3', 'invalidate_cloudfront']);
 };
